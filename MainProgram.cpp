@@ -164,7 +164,6 @@ arrayListType<elemType>::arrayListType(int size) {
 
 template <class elemType>
 arrayListType<elemType>::~arrayListType() { delete[] list; }
-
 template <class elemType>
 arrayListType<elemType>::arrayListType(const arrayListType<elemType>& otherList) {
     maxSize = otherList.maxSize;
@@ -202,46 +201,63 @@ const arrayListType<elemType>& arrayListType<elemType>::operator=(const arrayLis
 // If `location` is not a valid index, print an error message
 // to cerr and leave the list unchanged.
 // ----------------------------------------------------------
+// ----------------------------------------------------------
+// Task 1 - removeAt  (30 pts)
+// ----------------------------------------------------------
 template <class elemType>
 void arrayListType<elemType>::removeAt(int location) {
-    // TODO
-    throw runtime_error("removeAt() not implemented yet");
+    if (location < 0 || location >= length) {
+        cerr << "The location of the item to be removed is out of range." << endl;
+        return;
+    }
+    list[location] = list[length - 1];
+    length--;
 }
 
 // ----------------------------------------------------------
 // Task 2 - removeAll  (30 pts)
-// Remove EVERY occurrence of `removeItem` from the list.
-// Use your removeAt() function. Be careful: after removeAt(i)
-// a different element now sits at index i.
 // ----------------------------------------------------------
 template <class elemType>
 void arrayListType<elemType>::removeAll(const elemType& removeItem) {
-    // TODO
-    throw runtime_error("removeAll() not implemented yet");
+    int i = 0;
+    while (i < length) {
+        if (list[i] == removeItem) {
+            removeAt(i);
+        } else {
+            i++;
+        }
+    }
 }
 
 // ----------------------------------------------------------
 // Task 3 - min  (20 pts)
-// Return the smallest element. Use assert() to make sure the
-// list is not empty. The list must not be modified.
 // ----------------------------------------------------------
 template <class elemType>
 elemType arrayListType<elemType>::min() const {
-    // TODO
-    throw runtime_error("min() not implemented yet");
+    assert(length > 0);
+    elemType smallest = list[0];
+    for (int i = 1; i < length; i++) {
+        if (list[i] < smallest) {
+            smallest = list[i];
+        }
+    }
+    return smallest;
 }
 
 // ----------------------------------------------------------
 // Task 4 - max  (20 pts)
-// Return the largest element. Use assert() to make sure the
-// list is not empty. The list must not be modified.
 // ----------------------------------------------------------
 template <class elemType>
 elemType arrayListType<elemType>::max() const {
-    // TODO
-    throw runtime_error("max() not implemented yet");
+    assert(length > 0);
+    elemType largest = list[0];
+    for (int i = 1; i < length; i++) {
+        if (list[i] > largest) {
+            largest = list[i];
+        }
+    }
+    return largest;
 }
-
 // ==========================================================
 // YOUR WORK ENDS HERE
 // ==========================================================
